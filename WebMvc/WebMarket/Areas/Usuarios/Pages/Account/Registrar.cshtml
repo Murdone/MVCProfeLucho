@@ -1,0 +1,49 @@
+﻿@page  "/Registro/"   //aca se editas las url
+@model RegistrarModel
+@{
+    var image = "/imagenes/imagenes/Usuario.png";
+}
+
+
+<div class="container p-4">
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <output id="ImagenUsuario">
+                            <img src=@image class="ImgenUsuario" />
+                        </output>
+                    </div>
+                    <div class="card-body">
+                        <div class="caption text-center">
+                            <label class="btn btn-primary" for="file">Foto</label>
+                            <input asp-for="Input.AvatarImage" accept="image/*" type="file" id="files" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-5">
+                <div class="panel panel-primary">
+                    <h3 class="panel-title">Registrar Usuario</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <div id="header" class="bg-info">
+                                    <h2 class="mb-0 t">
+                                        <button class="btn btn-link text-light" type="button" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Agregar Datos
+                                        </button>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
