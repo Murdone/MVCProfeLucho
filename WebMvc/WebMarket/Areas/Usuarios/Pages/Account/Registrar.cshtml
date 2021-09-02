@@ -43,31 +43,31 @@
                                      data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <input asp-for="Input.Rut" placeholder="Rut" class="form-control" autofocus />
+                                            <input asp-for="Input.Rut" placeholder="Ingrese Rut" class="form-control" autofocus />
                                             <span asp-validation-for="Input.Rut" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="Input.Nombre" placeholder="Nombre" class="form-control" />
+                                            <input asp-for="Input.Nombre" placeholder="Ingrese Nombre" class="form-control" />
                                             <span asp-validation-for="Input.Nombre" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="Input.Apellido" placeholder="Apellido" class="form-control" />
+                                            <input asp-for="Input.Apellido" placeholder="Ingrese Apellido" class="form-control" />
                                             <span asp-validation-for="Input.Apellido" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="Input.NumeroTelefono" placeholder="Numero De Telefono" class="form-control" />
+                                            <input asp-for="Input.NumeroTelefono" placeholder="Ingrese Numero de Telefono" class="form-control" />
                                             <span asp-validation-for="Input.NumeroTelefono" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="Input.Email" placeholder="Correo Electronico" class="form-control" />
+                                            <input asp-for="Input.Email" placeholder="Ingrese Correo Electronico" class="form-control" />
                                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="Input.Password" placeholder="Contraseña" class="form-control" />
+                                            <input asp-for="Input.Password" placeholder="Password" class="form-control" />
                                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                             @Html.DropDownList("Input.Role", new SelectList(Model.Input.rolesLitas, "Text", "Text"), "Seleccione un role", new { @class = "form-control" })
+                                            @Html.DropDownList("Input.Role", new SelectList(Model.Input.rolesLitas, "Text", "Text"), "Seleccione un Rol", new { @class = "form-control" })
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary btn-block">Register</button>

@@ -12,7 +12,7 @@ namespace WebMarket.Controllers
     public class HomeController : Controller
     {
         //private readonly ILogger<HomeController> _logger;
-        IServiceProvider _serviceProvider;
+        //IServiceProvider _serviceProvider;
 
         //public HomeController(ILogger<HomeController> logger)
         //{
