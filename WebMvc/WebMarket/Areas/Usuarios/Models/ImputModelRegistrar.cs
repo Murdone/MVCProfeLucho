@@ -26,5 +26,8 @@ namespace WebMarket.Areas.Usuarios.Models
         [Required(ErrorMessage = "El Campo {0} es oblitario")]
         [StringLength(50, ErrorMessage ="el número de caracteres de {0} debe ser al menos {2}.",MinimumLength = 6)]
         public string Password { get; set; }
+        [Required]
+        public string Roles { get; set; }
+
     }
 }
