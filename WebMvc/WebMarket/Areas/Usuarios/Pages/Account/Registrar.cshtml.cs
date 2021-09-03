@@ -81,7 +81,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
         {
             _dataInput = Input;
             var valor = false;
-            if (!Input.Roles.Equals("Seleccione un Rol"))
+            if (ModelState.IsValid)
             {
                 var userList = _userManager.Users.Where(u => u.Email.Equals(Input.Email)).ToList();
                 if (userList.Count.Equals(0))
@@ -142,7 +142,13 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                 }
                 else
                 {
-                    _dataInput.ErrorMessage = $"El {Input.Email} ya esta registrado";
+                    foreach (var modelState in ModelState.Values)
+                    {
+                        foreach (var error in modelState.Errors)
+                        {
+                            _dataInput.ErrorMessage += error.ErrorMessage;
+                        }
+                    }
                     valor = false;
                 }
             }
