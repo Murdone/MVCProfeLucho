@@ -11,27 +11,21 @@ namespace WebMarket.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
         //IServiceProvider _serviceProvider;
 
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
         public HomeController(IServiceProvider serviceProvider)
         {
-            
-          //  _serviceProvider = serviceProvider;
+            //_serviceProvider = serviceProvider;
         }
+
         public async Task<IActionResult> Index()
         {
-            //await CrearRolesAsync(_serviceProvider);
+            //await CreateRolesAsync(_serviceProvider);
             return View();
         }
 
         public IActionResult Privacy()
         {
-            
             return View();
         }
 
@@ -40,18 +34,18 @@ namespace WebMarket.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        //private async Task CrearRolesAsync(IServiceProvider serviceProvider)
-        //{
-        //    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        //    string[] rolesName = {"Administrador","Usuario"};
-        //    foreach (var item in rolesName)
-        //    {
-        //        var roleExist = await roleManager.RoleExistsAsync(item); //registra los roles que estan en la lista de roles como verdadero yu falso
-        //        if (!roleExist)// aca se ve si existe o no si no eviste lo cambiamos a verdadero y lo registramos a la base de datos
-        //        {
-        //            await roleManager.CreateAsync(new IdentityRole(item));
-        //        }
-        //    }
-        //}
+        private async Task CreateRolesAsync(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            String[] rolesName = { "Admin", "User" };
+            foreach (var item in rolesName)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(item);
+                if (!roleExist)
+                {
+                    await roleManager.CreateAsync(new IdentityRole(item));
+                }
+            }
+        }
     }
 }

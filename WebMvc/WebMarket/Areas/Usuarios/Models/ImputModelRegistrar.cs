@@ -16,7 +16,6 @@ namespace WebMarket.Areas.Usuarios.Models
         [Display(Name = "Telefono")]
         [Required(ErrorMessage = "El Campo {0} es oblitario")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "El formato telefono ingresado no es válido.")]
         public string NumeroTelefono { get; set; }
         [Display(Name = "Correo Electronico")]
         [Required(ErrorMessage = "El Campo {0} es oblitario")]

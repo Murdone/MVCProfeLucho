@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using WebMarket.Areas.Usuarios.Models;
 using WebMarket.Data;
 using WebMarket.Libreria;
@@ -17,45 +19,54 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
     {
         private SignInManager<IdentityUser> _signInManager;
         private UserManager<IdentityUser> _userManager;
-        private RoleManager<IdentityRole> _RoleManager;
-        private LUsuariosRoles _UsuariosRole;
-        private static ImputModel _DataInput;
+        private RoleManager<IdentityRole> _roleManager;
         private ApplicationDbContext _context;
-
-        public RegistrarModel(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> RoleManager, ApplicationDbContext context)
+        private LUsuariosRoles _usersRole;
+        private static InputModel _dataInput;
+        private Uploadimage _uploadimage;
+        private IWebHostEnvironment _environment;
+        public RegistrarModel(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context,
+            IWebHostEnvironment environment)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _RoleManager = RoleManager;
             _context = context;
-            _UsuariosRole = new LUsuariosRoles();
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _environment = environment;
+            _usersRole = new LUsuariosRoles();
+            _uploadimage = new Uploadimage();
         }
-
-        public void OnGet() //peticiones get
+        public void OnGet()
         {
-            if (_DataInput != null)
+            if (_dataInput != null)
             {
-                Input = _DataInput;
-                Input.rolesLitas = _UsuariosRole.getRoles(_RoleManager);
+                Input = _dataInput;
+                Input.rolesLista = _usersRole.getRoles(_roleManager);
                 Input.AvatarImage = null;
             }
             else
             {
-                Input = new ImputModel
+                Input = new InputModel
                 {
-                    rolesLitas = _UsuariosRole.getRoles(_RoleManager)
+                    rolesLista = _usersRole.getRoles(_roleManager)
                 };
             }
+
         }
-        [BindProperty] // propiedad para ingresar a imput model
-        public ImputModel Input { get; set; }
-        public class ImputModel : ImputModelRegistrar
+        [BindProperty]
+        public InputModel Input { get; set; }
+        public class InputModel : ImputModelRegistrar
         {
             public IFormFile AvatarImage { get; set; }
+            [TempData]
             public string ErrorMessage { get; set; }
-            public List<SelectListItem> rolesLitas { get; set; }
+            public List<SelectListItem> rolesLista { get; set; }
         }
-        public async Task<IActionResult> OnPost()  //peticion por post 
+        public async Task<IActionResult> OnPost()
         {
             if (await SaveAsync())
             {
@@ -63,24 +74,23 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
             }
             else
             {
-                return Redirect("/Registro/");
+                return Redirect("/Registro");
             }
         }
         private async Task<bool> SaveAsync()
         {
-            _DataInput = Input;
+            _dataInput = Input;
             var valor = false;
-            if (ModelState.IsValid)
+            if (!Input.Roles.Equals("Seleccione un Rol"))
             {
-                var userList = _userManager.Users.Where(u=> u.Email.Equals(Input.Email)).ToList(); //referencia a la clase identity que maneja y adimistra los usuarios si hay email revisa si el correo esta registrado
+                var userList = _userManager.Users.Where(u => u.Email.Equals(Input.Email)).ToList();
                 if (userList.Count.Equals(0))
                 {
-                    var strategy = _context.Database.CreateExecutionStrategy(); //aca indicamos a la base de datos que aremos una estrategia para insertar datos simultaneamente
-                    await strategy.ExecuteAsync(async () => 
-                    {
-                        using (var transaction = _context.Database.BeginTransaction()) 
+                    var strategy = _context.Database.CreateExecutionStrategy();
+                    await strategy.ExecuteAsync(async () => {
+                        using (var transaction = _context.Database.BeginTransaction())
                         {
-                            try 
+                            try
                             {
                                 var user = new IdentityUser
                                 {
@@ -88,42 +98,64 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                                     Email = Input.Email,
                                     PhoneNumber = Input.NumeroTelefono
                                 };
-                                var resultado = await _userManager.CreateAsync(user, Input.Password);
-                                if (resultado.Succeeded)
+                                var result = await _userManager.CreateAsync(user, Input.Password);
+                                if (result.Succeeded)
                                 {
                                     await _userManager.AddToRoleAsync(user, Input.Roles);
-                                    var dataUser = _userManager.Users.Where(u => u.Email.Equals(Input.Email)).ToList().Last(); //aca buscamos la informacion del ultimo usuario que acabamos de registrar
-                                    var imageByte = await _uploadimage.ByteAvatarImageAsync(Input.AvatarImage, _environmet, "Imagenes/Imagenes");
-                                }
-                                else 
-                                {
-                                   foreach (var item in resultado.Errors)
+                                    var dataUser = _userManager.Users.Where(u => u.Email.Equals(Input.Email)).ToList().Last();
+                                    var imageByte = await _uploadimage.ByteAvatarImageAsync(
+                                        Input.AvatarImage, _environment, "Imagenes/Imagenes/Usuario.png");
+                                    var t_user = new TUsuario
                                     {
-                                        _DataInput.ErrorMessage = item.Description;
+                                        Name = Input.Nombre,
+                                        LastName = Input.Apellido,
+                                        NID = Input.Rut,
+                                        Email = Input.Email,
+                                        IdUser = dataUser.Id,
+                                        Image = imageByte,
+                                    };
+                                    await _context.AddAsync(t_user);
+                                    _context.SaveChanges();
+
+                                    transaction.Commit();
+                                    _dataInput = null;
+                                    valor = true;
+                                }
+                                else
+                                {
+                                    foreach (var item in result.Errors)
+                                    {
+                                        _dataInput.ErrorMessage = item.Description;
                                     }
                                     valor = false;
+                                    transaction.Rollback();
                                 }
                             }
-                            catch(Exception ex)
+                            catch (Exception ex)
                             {
-                                _DataInput.ErrorMessage = ex.Message;
-                                transaction.Rollback(); // desacer los cambios si hay algun error 
+                                _dataInput.ErrorMessage = ex.Message;
+                                transaction.Rollback();
                                 valor = false;
                             }
                         }
                     });
                 }
-                else 
+                else
                 {
-                    _DataInput.ErrorMessage = $"El {Input.Email} ya esta registrado";
+                    _dataInput.ErrorMessage = $"El {Input.Email} ya esta registrado";
                     valor = false;
                 }
-                
             }
-            else 
+            else
             {
-                _DataInput.ErrorMessage = "No Deje Campos Vacion selecione el rol";
-                 valor = false;
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        _dataInput.ErrorMessage += error.ErrorMessage;
+                    }
+                }
+                valor = false;
             }
 
             return valor;
