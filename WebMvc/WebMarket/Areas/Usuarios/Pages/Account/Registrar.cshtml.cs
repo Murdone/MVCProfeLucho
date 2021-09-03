@@ -152,7 +152,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                 {
                     foreach (var error in modelState.Errors)
                     {
-                        _dataInput.ErrorMessage += error.ErrorMessage;
+                        _dataInput.ErrorMessage =  error.ErrorMessage;
                     }
                 }
                 valor = false;
