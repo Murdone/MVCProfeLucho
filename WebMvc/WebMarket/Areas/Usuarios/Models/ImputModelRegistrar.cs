@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebMarket.Areas.Usuarios.Models
 {
     public class ImputModelRegistrar
     {
+
         [Required(ErrorMessage = "El Campo {0} es oblitario")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede ser mayor a {1} caracteres")]
         public string Nombre { get; set; }
@@ -12,7 +14,7 @@ namespace WebMarket.Areas.Usuarios.Models
         public string Apellido { get; set; }
         [Required(ErrorMessage = "El Campo {0} es oblitario")]
         [MaxLength(10, ErrorMessage = "El campo {0} no puede ser mayor a {1} caracteres")]
-        [RegularExpression(@"^(\d{1,3}(?:\d{1,3}){2}-[\dkK])$",ErrorMessage ="Rut con caracteres incorrectos")]
+        [RegularExpression(@"^(\d{1,3}(?:\d{1,3}){2}-[\dkK])$", ErrorMessage = "Rut con caracteres incorrectos")]
         public string Rut { get; set; }
         [Display(Name = "Telefono")]
         [Required(ErrorMessage = "El Campo {0} es oblitario")]
@@ -25,10 +27,13 @@ namespace WebMarket.Areas.Usuarios.Models
         public string Email { get; set; }
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "El Campo {0} es oblitario")]
-        [StringLength(50, ErrorMessage ="el número de caracteres de {0} debe ser al menos {2} y debe letras numeros y algun caracter .",MinimumLength = 6)]
+        [StringLength(50, ErrorMessage = "el número de caracteres de {0} debe ser al menos {2} y debe letras numeros y algun caracter .", MinimumLength = 6)]
         public string Password { get; set; }
-        [Required(ErrorMessage ="Seleccione Un Rol")]
+        [Required(ErrorMessage = "Seleccione Un Rol")]
         public string Roles { get; set; }
-
+        public string ID { get; set; }
+        public int Id { get; set; }
+        public byte[] Image { get; set; }
+        public IdentityUser IdentityUser { get; set; }
     }
 }

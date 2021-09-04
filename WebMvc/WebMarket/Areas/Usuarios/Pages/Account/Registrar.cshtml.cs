@@ -107,9 +107,9 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                                         Input.AvatarImage, _environment, "Imagenes/Imagenes/Usuario.png");
                                     var t_user = new TUsuario
                                     {
-                                        Name = Input.Nombre,
-                                        LastName = Input.Apellido,
-                                        NID = Input.Rut,
+                                        Nombre = Input.Nombre,
+                                        Apellido = Input.Apellido,
+                                        Rut = Input.Rut,
                                         Email = Input.Email,
                                         IdUser = dataUser.Id,
                                         Image = imageByte,
