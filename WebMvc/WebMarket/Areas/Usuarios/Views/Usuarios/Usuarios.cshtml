@@ -4,7 +4,8 @@
 @{
     ViewData["Title"] = "Usuarios";
 }
-<<div class="container p-4">
+
+<div class="container p-4">
     <div class="form-group">
         <form asp-area="Usuarios" asp-controller="Usuarios" asp-action="Usuarios" method="get">
             <div class="row">
@@ -33,8 +34,8 @@
             <div class="col-xs-6 col-md-2">
                 <div class="card text-center">
                     <div class="card-header ">
-                        <a asp-route-id="@item.Id" asp-area="Usuarios" asp-page="/Account/Details">
-                            <img class="imageUsers" src="@image"/>
+                        <a asp-route-id="@item.Id" asp-area="Usuarios" asp-page="/Account/Detallles">
+                            <img class='imageUsers' src="@image" />
                         </a>
                     </div>
                     <div class="card-body text-center">
