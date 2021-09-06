@@ -20,32 +20,33 @@ namespace WebMarket.Areas.Usuarios.Controllers
             _signInManager = signInManager;
             _user = new LUsuarios(userManager, signInManager, roleManager, context);
         }
-        public IActionResult Usuarios(int id, string filtrar)
+        public IActionResult Usuarios(int id, string filtrar, int registros)
         {
             //if (_signInManager.IsSignedIn(User))
             //{
-                Object[] objects = new Object[3];
-                var data = _user.getTUsuariosAsync(filtrar, 0);
-                if (0 < data.Result.Count)
-                {
-                    var url = Request.Scheme + "://" + Request.Host.Value;
-                    objects = new LPaginador<ImputModelRegistrar>().paginador(data.Result, id, 10, "Usuarios", "Usuarios", "Usuarios", url);
-                }
-                else
-                {
-                    objects[0] = "No hay datos que mostrar";
-                    objects[1] = "No hay datos que mostrar";
-                    objects[2] = new List<ImputModelRegistrar>();
-                }
-                _models = new DataPaginador<ImputModelRegistrar>
-                {
-                    List = (List<ImputModelRegistrar>)objects[2],
-                    Pagi_infor = (String)objects[0],
-                    Pagi_navegacion = (String)objects[1],
-                    Input = new ImputModelRegistrar(),
-                };
-                return View(_models);
-            //}
+            Object[] objects = new Object[3];
+            var data = _user.getTUsuariosAsync(filtrar, 0);
+            if (0 < data.Result.Count)
+            {
+                var url = Request.Scheme + "://" + Request.Host.Value;
+                objects = new LPaginador<ImputModelRegistrar>().paginador(data.Result,
+                    id, registros, "Usuarios", "Usuarios", "Usuarios", url);
+            }
+            else
+            {
+                objects[0] = "No hay datos que mostrar";
+                objects[1] = "No hay datos que mostrar";
+                objects[2] = new List<ImputModelRegistrar>();
+            }
+            _models = new DataPaginador<ImputModelRegistrar>
+            {
+                List = (List<ImputModelRegistrar>)objects[2],
+                Pagi_infor = (String)objects[0],
+                Pagi_navegacion = (String)objects[1],
+                Input = new ImputModelRegistrar(),
+            };
+            return View(_models);
+
             //else
             //{
             //    return Redirect("/");
