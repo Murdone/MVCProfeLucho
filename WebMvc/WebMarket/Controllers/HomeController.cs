@@ -11,16 +11,16 @@ namespace WebMarket.Controllers
 {
     public class HomeController : Controller
     {
-        //IServiceProvider _serviceProvider;
+        IServiceProvider _serviceProvider;
 
         public HomeController(IServiceProvider serviceProvider)
         {
-            //_serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task<IActionResult> Index()
         {
-            //await CreateRolesAsync(_serviceProvider);
+            await CreateRolesAsync(_serviceProvider);
             return View();
         }
 
