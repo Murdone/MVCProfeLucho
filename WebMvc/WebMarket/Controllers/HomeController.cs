@@ -30,7 +30,7 @@ namespace WebMarket.Controllers
             //await CreateRolesAsync(_serviceProvider);
             if (ModelState.IsValid)
             {
-                var result = await _user.UserLoginAsync(model);
+               // var result = await _user.UserLoginAsync(model);
                 if (result.Succeeded)
                 {
                     return Redirect("/Principal/Principal");
