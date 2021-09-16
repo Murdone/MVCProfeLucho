@@ -97,8 +97,8 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
         public class InputModel : ImputModelRegistrar
         {
             public IFormFile AvatarImage { get; set; }
-            [TempData]
-            public string ErrorMessage { get; set; }
+           // [TempData]
+            //public string ErrorMessage { get; set; }
             public List<SelectListItem> rolesLista { get; set; }
         }
         public async Task<IActionResult> OnPost(String dataUser)

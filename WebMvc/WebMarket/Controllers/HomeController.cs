@@ -1,26 +1,57 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using WebMarket.Areas.Usuarios.Models;
 using WebMarket.Models;
 
 namespace WebMarket.Controllers
 {
     public class HomeController : Controller
     {
+        private static ImputModelLogin _model;
         IServiceProvider _serviceProvider;
 
         public HomeController(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
-
         public async Task<IActionResult> Index()
         {
             await CreateRolesAsync(_serviceProvider);
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(ImputModelLogin model)
+        {
+            _model = model;
+            //await CreateRolesAsync(_serviceProvider);
+            if (ModelState.IsValid)
+            {
+                var result = await _user.UserLoginAsync(model);
+                if (result.Succeeded)
+                {
+                    return Redirect("/Principal/Principal");
+                }
+                else
+                {
+                    _model.ErrorMessage = "Correo o contraseña inválidos.";
+                    return Redirect("/");
+                }
+            }
+            else
+            {
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        _model.ErrorMessage = error.ErrorMessage;
+                    }
+                }
+                return Redirect("/");
+            }
             return View();
         }
 

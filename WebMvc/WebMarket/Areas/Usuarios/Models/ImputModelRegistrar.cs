@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebMarket.Areas.Usuarios.Models
@@ -35,5 +36,8 @@ namespace WebMarket.Areas.Usuarios.Models
         public int Id { get; set; }
         public byte[] Image { get; set; }
         public IdentityUser IdentityUser { get; set; }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
     }
 }
