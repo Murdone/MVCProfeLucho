@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,8 @@ using WebMarket.Libreria;
 
 namespace WebMarket.Areas.Usuarios.Pages.Account
 {
+    [Authorize]
+    [Area("Usuarios")]
     public class RegistrarModel : PageModel
     {
         private SignInManager<IdentityUser> _signInManager;
@@ -138,6 +141,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
             }
 
         }
+   
         private async Task<bool> SaveAsync()
         {
             _dataInput = Input;
@@ -240,6 +244,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
             });
             return rolesLista;
         }
+  
         private async Task<bool> UpdateAsync()
         {
             var valor = false;

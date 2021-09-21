@@ -1,26 +1,39 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject ApplicationDbContext context
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    var Nombre = "";
+    var id = UserManager.GetUserId(User);
+    var Usuario = context.TUsuarios.Where(u => u.IdUser.Equals(id)).ToList();
+    if (Usuario.Count.Equals(0))
+    {
+        Nombre = "Sin Registro de Nombre";
+    }
+    else
+    {
+        Nombre = $"{Usuario[0].Nombre} {Usuario[0].Apellido}";
+    }
+
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hola @Nombre </a>
     </li>
     <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
+       <form class="form-inline"  asp-area="Usuarios" asp-controller="Usuarios" asp-action="Salir">
+           <button type="submit" class="nav.link btn btn-link text-dark">Salir</button>
+       </form>
     </li>
 }
 else
 {
-    <li class="nav-item">
+    @*<li class="nav-item">
         <a class="nav-link text-dark" asp-area="Usuarios" asp-page="/Account/Registrar">Registrar</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Salir</a>
+    </li>*@
 }
 </ul>

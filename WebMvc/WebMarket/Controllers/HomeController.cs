@@ -4,7 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using WebMarket.Areas.Principal.Controllers;
 using WebMarket.Areas.Usuarios.Models;
+using WebMarket.Data;
+using WebMarket.Libreria;
 using WebMarket.Models;
 
 namespace WebMarket.Controllers
@@ -12,16 +15,39 @@ namespace WebMarket.Controllers
     public class HomeController : Controller
     {
         private static ImputModelLogin _model;
+        private LUsuarios _user;
         IServiceProvider _serviceProvider;
+        private SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(IServiceProvider serviceProvider)
+        public HomeController(IServiceProvider serviceProvider, UserManager<IdentityUser> userManager,
+             SignInManager<IdentityUser> signInManager,
+             RoleManager<IdentityRole> roleManager,
+             ApplicationDbContext context)
         {
             _serviceProvider = serviceProvider;
+            _user = new LUsuarios(userManager, signInManager,roleManager,context);
+            _signInManager = signInManager;
         }
         public async Task<IActionResult> Index()
         {
             await CreateRolesAsync(_serviceProvider);
-            return View();
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction(nameof(PrincipalController.Principal), "Principal");
+            }
+            else
+            {
+                if (_model != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return View();
+                }
+            }
+           
+           
         }
         [HttpPost]
         public async Task<IActionResult> Index(ImputModelLogin model)
@@ -30,8 +56,8 @@ namespace WebMarket.Controllers
             //await CreateRolesAsync(_serviceProvider);
             if (ModelState.IsValid)
             {
-               // var result = await _user.UserLoginAsync(model);
-                if (result.Succeeded)
+                var result = await _user.UsuarioLoginAsync(model);
+                if (result.Succeeded) // si da valor verdadero se logea
                 {
                     return Redirect("/Principal/Principal");
                 }
@@ -52,7 +78,7 @@ namespace WebMarket.Controllers
                 }
                 return Redirect("/");
             }
-            return View();
+            
         }
 
         public IActionResult Privacy()
