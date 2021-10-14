@@ -34,6 +34,7 @@ namespace WebMarket.Controllers
             if (_signInManager.IsSignedIn(User))
             {
                 return RedirectToAction(nameof(PrincipalController.Principal), "Principal");
+
             }
             else
             {
@@ -46,14 +47,14 @@ namespace WebMarket.Controllers
                     return View();
                 }
             }
-           
-           
+
+          //  return View();
         }
         [HttpPost]
         public async Task<IActionResult> Index(ImputModelLogin model)
         {
             _model = model;
-            //await CreateRolesAsync(_serviceProvider);
+            await CreateRolesAsync(_serviceProvider);
             if (ModelState.IsValid)
             {
                 var result = await _user.UsuarioLoginAsync(model);
@@ -66,6 +67,7 @@ namespace WebMarket.Controllers
                     _model.ErrorMessage = "Correo o contraseña inválidos.";
                     return Redirect("/");
                 }
+
             }
             else
             {

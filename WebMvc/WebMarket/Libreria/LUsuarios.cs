@@ -68,7 +68,7 @@ namespace WebMarket.Libreria
         }
         internal async Task<SignInResult> UsuarioLoginAsync(ImputModelLogin model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password,false, lockoutOnFailure:false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, lockoutOnFailure: false);
             if (result.Succeeded) // si se ingresa credenciales correctas da true
             {
 

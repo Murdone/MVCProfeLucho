@@ -101,8 +101,11 @@
                                         }
 
                                         <input type="hidden" name="DataUser" value="@dataUser" />
-                                        <input type="submit" value="Editar" class="btn btn-success ">
-                                    </form>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <input type="submit" value="Editar" class="btn btn-success ">
+                                        }
+                                        </form>
                                 </td>
                             </tr>
                         </tbody>

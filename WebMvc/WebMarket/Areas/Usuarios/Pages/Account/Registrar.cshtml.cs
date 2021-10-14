@@ -110,27 +110,43 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
             {
                 if (_dataUser2 == null)
                 {
-                    if (await SaveAsync())
+                    if (User.IsInRole("Admin")) 
+                    {
+                        if (await SaveAsync())
+                        {
+                            return Redirect("/Usuarios/Usuarios?area=Usuarios");
+                        }
+                        else
+                        {
+                            return Redirect("/Registro");
+                        }
+                    }
+                    else
                     {
                         return Redirect("/Usuarios/Usuarios?area=Usuarios");
                     }
-                    else
-                    {
-                        return Redirect("/Registro");
-                    }
+
                 }
                 else
                 {
-                    if (await UpdateAsync())
+                    if (User.IsInRole("Admin"))
                     {
-                        var url = $"/Usuarios/Account/Detallles?id={_dataUser2.Id}";
-                        _dataUser2 = null;
-                        return Redirect(url);
+                        if (await UpdateAsync())
+                        {
+                            var url = $"/Usuarios/Account/Detallles?id={_dataUser2.Id}";
+                            _dataUser2 = null;
+                            return Redirect(url);
+                        }
+                        else
+                        {
+                            return Redirect("/Registro");
+                        }
                     }
                     else
                     {
-                        return Redirect("/Registro");
+                        return Redirect("/Usuarios/Usuarios?area=Usuarios");
                     }
+                     
                 }
 
             }
@@ -141,7 +157,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
             }
 
         }
-   
+       
         private async Task<bool> SaveAsync()
         {
             _dataInput = Input;
@@ -244,7 +260,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
             });
             return rolesLista;
         }
-  
+     
         private async Task<bool> UpdateAsync()
         {
             var valor = false;

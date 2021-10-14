@@ -45,11 +45,16 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
+
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Usuarios</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Usuarios" asp-controller="Usuarios" asp-action="Usuarios">Lista de Usuarios</a>
-                                    <a class="dropdown-item" asp-route-id="0" asp-area="Usuarios" asp-page="/Account/Registrar">Registrar Usuario</a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a class="dropdown-item" asp-route-id="0" asp-area="Usuarios" asp-page="/Account/Registrar">Registrar Usuario</a>
+                                    }
                                 </div>
                             </li>
                         </ul>

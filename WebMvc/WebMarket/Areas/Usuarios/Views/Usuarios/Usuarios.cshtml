@@ -28,7 +28,10 @@
             <div class="row">
                 <div class="form-group">
                     <div class="col-md-1">
-                        @*<a class="btn btn-primary text-white" asp-route-id="0" asp-area="Usuarios" asp-page="/Account/Registrar">Agregar</a>*@
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-primary text-white" asp-route-id="0" asp-area="Usuarios" asp-page="/Account/Registrar">Agregar</a>
+                        }
                     </div>
                 </div>
                 <form asp-area="Usuarios" asp-controller="Usuarios" asp-action="Usuarios" method="get">
