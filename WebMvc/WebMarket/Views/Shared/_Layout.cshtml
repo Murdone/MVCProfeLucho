@@ -29,6 +29,7 @@
                             <path id="Trazado_408" data-name="Trazado 408" d="M742.8,101.32h12.4v-11a9.884,9.884,0,0,1,.05-1.25,5,5,0,0,0,0-.87V71.32c-.75.73-1.44,1.41-2.09,2.07s-1.07,1.08-1.58,1.61l-1.77,1.81c-.53.53-1.07,1.05-1.59,1.56l-1.33,1.31c-.37.36-.73.74-1.11,1.13L744.63,82c-.4.4-1.1,1-2.07,1.89a4.68,4.68,0,0,1-6.21,0c-1-.85-1.66-1.49-2.06-1.89l-1.12-1.14-1.1-1.13-1.33-1.31c-.52-.51-1.06-1-1.59-1.56S728,75.64,727.38,75l-1.58-1.61c-.65-.66-1.34-1.34-2.09-2.07v30Z" transform="translate(-716.98 -48.31)" fill="#eb5019" />
                         </g>
                     </svg>
+
                     WebMarket
                 </a>
                 @if (SignInManager.IsSignedIn(User))
@@ -46,16 +47,24 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
 
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Clientes</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Clientes" asp-controller="Clientes" asp-action="Clientes">Lista de Clientes</a>
+                                    <a class="dropdown-item" asp-route-id="0" asp-area="Clientes" asp-page="/Account/Registrar">Registrar Clientes</a>
+
+                                </div>
+                            </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Usuarios</a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Usuarios" asp-controller="Usuarios" asp-action="Usuarios">Lista de Usuarios</a>
-                                    @if (User.IsInRole("Admin"))
-                                    {
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Usuarios</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" asp-area="Usuarios" asp-controller="Usuarios" asp-action="Usuarios">Lista de Usuarios</a>
                                         <a class="dropdown-item" asp-route-id="0" asp-area="Usuarios" asp-page="/Account/Registrar">Registrar Usuario</a>
-                                    }
-                                </div>
+                                    </div>
+                                }
                             </li>
                         </ul>
                         <partial name="_LoginPartial" />

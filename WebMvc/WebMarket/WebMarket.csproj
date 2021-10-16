@@ -16,13 +16,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Clientes\Controllers\" />
     <Folder Include="Areas\Clientes\Data\" />
-    <Folder Include="Areas\Clientes\Models\" />
-    <Folder Include="Areas\Clientes\Views\" />
     <Folder Include="Areas\Principal\Data\" />
     <Folder Include="Areas\Principal\Models\" />
     <Folder Include="Areas\Usuarios\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Clientes\Pages\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

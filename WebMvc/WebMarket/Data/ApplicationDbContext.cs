@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using WebMarket.Areas.Clientes.Models;
 using WebMarket.Areas.Usuarios.Models;
 
 namespace WebMarket.Data
@@ -13,5 +11,7 @@ namespace WebMarket.Data
         {
         }
         public DbSet<TUsuario> TUsuarios { get; set; }
+        public DbSet<TCliente> TClientes { get; set; }
+        public DbSet<TReports_cliente> TReports_clients { get; set; }
     }
 }

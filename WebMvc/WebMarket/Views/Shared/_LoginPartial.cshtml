@@ -4,29 +4,38 @@
 @inject ApplicationDbContext context
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    var Nombre = "";
-    var id = UserManager.GetUserId(User);
- 
-    var Usuario = context.TUsuarios.Where(u => u.IdUser.Equals(id)).ToList();
-    if (Usuario.Count.Equals(0))
+    @if (SignInManager.IsSignedIn(User))
     {
-        Nombre = "Sin Registro de Nombre";
+        var Nombre = "";
+        var id = UserManager.GetUserId(User);
+
+        var Usuario = context.TUsuarios.Where(u => u.IdUser.Equals(id)).ToList();
+        if (Usuario.Count.Equals(0))
+        {
+            Nombre = "Sin Registro de Nombre";
+        }
+        else
+        {
+            Nombre = $"{Usuario[0].Nombre} {Usuario[0].Apellido}";
+
+        }
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hola @Nombre!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Usuarios" asp-controller="Usuarios" asp-action="Salir">
+                <button type="submit" class="nav-link btn btn-link text-dark">Salir</button>
+            </form>
+        </li>
     }
     else
     {
-        Nombre = $"{Usuario[0].Nombre} {Usuario[0].Apellido}";
-        
+        @*<li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Users" asp-page="/Account/Register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>*@
     }
-     
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hola @Nombre </a>
-    </li>
-    <li class="nav-item">
-       <form class="form-inline"  asp-area="Usuarios" asp-controller="Usuarios" asp-action="Salir">
-           <button type="submit" class="nav.link btn btn-link text-dark">Salir</button>
-       </form>
-    </li>
-}
 </ul>

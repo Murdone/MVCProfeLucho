@@ -67,6 +67,7 @@ namespace WebMarket
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapAreaControllerRoute("Usuarios","Usuarios", "{controller=Usuarios}/{action=Usuarios}/{id?}");
                 endpoints.MapAreaControllerRoute("Principal", "Principal", "{controller=Principal}/{action=Principal}/{id?}");
+                endpoints.MapAreaControllerRoute("Clientes", "Clientes", "{controller=Clientes}/{action=Clientes}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
