@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using WebMarket.Areas.Usuarios.Models;
 using WebMarket.Data;
 using WebMarket.Libreria;
@@ -100,7 +100,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
         public class InputModel : ImputModelRegistrar
         {
             public IFormFile AvatarImage { get; set; }
-           // [TempData]
+            // [TempData]
             //public string ErrorMessage { get; set; }
             public List<SelectListItem> rolesLista { get; set; }
         }
@@ -110,7 +110,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
             {
                 if (_dataUser2 == null)
                 {
-                    if (User.IsInRole("Admin")) 
+                    if (User.IsInRole("Admin"))
                     {
                         if (await SaveAsync())
                         {
@@ -146,7 +146,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                     {
                         return Redirect("/Usuarios/Usuarios?area=Usuarios");
                     }
-                     
+
                 }
 
             }
@@ -157,7 +157,7 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
             }
 
         }
-       
+
         private async Task<bool> SaveAsync()
         {
             _dataInput = Input;
@@ -168,7 +168,8 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                 if (userList.Count.Equals(0))
                 {
                     var strategy = _context.Database.CreateExecutionStrategy();
-                    await strategy.ExecuteAsync(async () => {
+                    await strategy.ExecuteAsync(async () =>
+                    {
                         using (var transaction = _context.Database.BeginTransaction())
                         {
                             try
@@ -249,7 +250,8 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                 Text = role
             });
             var roles = _usersRole.getRoles(_roleManager);
-            roles.ForEach(item => {
+            roles.ForEach(item =>
+            {
                 if (item.Text != role)
                 {
                     rolesLista.Add(new SelectListItem
@@ -260,13 +262,14 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
             });
             return rolesLista;
         }
-     
+
         private async Task<bool> UpdateAsync()
         {
             var valor = false;
             byte[] imageByte = null;
             var strategy = _context.Database.CreateExecutionStrategy();
-            await strategy.ExecuteAsync(async () => {
+            await strategy.ExecuteAsync(async () =>
+            {
                 using (var transaction = _context.Database.BeginTransaction())
                 {
                     try

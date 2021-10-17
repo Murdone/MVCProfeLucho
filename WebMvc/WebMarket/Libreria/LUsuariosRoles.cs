@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,16 +12,17 @@ namespace WebMarket.Libreria
         {
             List<SelectListItem> _selectLists = new List<SelectListItem>();
             var role = roleManager.Roles.ToList();
-            role.ForEach(item => {
+            role.ForEach(item =>
+            {
                 _selectLists.Add(new SelectListItem
                 {
-                Value =item.Id,
-                Text = item.Name
-                }); 
+                    Value = item.Id,
+                    Text = item.Name
+                });
             });
             return _selectLists;
         }
-        public async Task<List<SelectListItem>> getRole (UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, string ID)
+        public async Task<List<SelectListItem>> getRole(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, string ID)
         {
             List<SelectListItem> _selectList = new List<SelectListItem>();
             var users = await userManager.FindByIdAsync(ID);

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebMarket.Areas.Clientes.Models
 {
@@ -20,7 +17,7 @@ namespace WebMarket.Areas.Clientes.Models
         public string Ticket { set; get; }
         public DateTime Deadline { set; get; }
         public int IdClient { get; set; }
-        
+
         public TCliente TClientes { get; set; }
     }
 }

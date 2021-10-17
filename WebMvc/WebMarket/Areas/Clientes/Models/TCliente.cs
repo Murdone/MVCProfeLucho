@@ -12,7 +12,7 @@ namespace WebMarket.Areas.Clientes.Models
         public string Nombre { set; get; }
         public string Apellido { set; get; }
         public string Email { set; get; }
-        public string Direction { set; get; }
+        public string Direccion { set; get; }
         public string Telefono { set; get; }
         public DateTime Date { set; get; }
         public bool Credit { set; get; }

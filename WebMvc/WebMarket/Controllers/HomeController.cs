@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -25,7 +24,7 @@ namespace WebMarket.Controllers
              ApplicationDbContext context)
         {
             //_serviceProvider = serviceProvider;
-            _user = new LUsuarios(userManager, signInManager,roleManager,context);
+            _user = new LUsuarios(userManager, signInManager, roleManager, context);
             _signInManager = signInManager;
         }
         public async Task<IActionResult> Index()

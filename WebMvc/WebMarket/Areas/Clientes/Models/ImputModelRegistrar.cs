@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebMarket.Areas.Clientes.Models
 {
@@ -23,7 +20,7 @@ namespace WebMarket.Areas.Clientes.Models
         [EmailAddress(ErrorMessage = "El campo {0} no es válido.")]
         public string Email { set; get; }
         [Required(ErrorMessage = "El Campo {0} es oblitario")]
-        public string Direction { set; get; }
+        public string Direccion { set; get; }
 
         [Display(Name = "Telefono")]
         [Required(ErrorMessage = "El Campo {0} es oblitario")]

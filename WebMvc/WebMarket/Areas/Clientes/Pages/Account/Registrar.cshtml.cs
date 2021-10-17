@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using WebMarket.Areas.Clientes.Models;
 using WebMarket.Data;
 using WebMarket.Libreria;
@@ -44,9 +42,9 @@ namespace WebMarket.Areas.Clientes.Pages.Account
         }
         public void OnGet(int id)
         {
-            Input = new InputModel 
+            Input = new InputModel
             {
-            
+
             };
         }
         [BindProperty]
@@ -54,7 +52,7 @@ namespace WebMarket.Areas.Clientes.Pages.Account
         public class InputModel : ImputModelRegistrar
         {
             public IFormFile AvatarImage { get; set; }
-   
+
         }
 
         public async Task<IActionResult> OnPost(String dataClient)
@@ -116,7 +114,7 @@ namespace WebMarket.Areas.Clientes.Pages.Account
                                     Email = Input.Email,
                                     Image = imageByte,
                                     Telefono = Input.Telefono,
-                                    Direction = Input.Direction,
+                                    Direccion = Input.Direccion,
                                     Credit = Input.Credit,
                                     Date = DateTime.Now
                                 };
