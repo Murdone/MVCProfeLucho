@@ -1,0 +1,106 @@
+﻿@page
+@model DetailsModel
+@{
+    var image = "data:image/jpg;base64," + Convert.ToBase64String(Model.Input.DataClient.Image,
+        0, Model.Input.DataClient.Image.Length);
+    var name = Model.Input.DataClient.Nombre + " " + Model.Input.DataClient.Apellido;
+}
+<div class="container">
+    <h1>@name</h1>
+    <div class="row">
+        <div class="col-sm ">
+            <div class="card text-center" style="width: 21rem;">
+                <div class="card-header ">
+                    <img class='imageUserDetails' src="@image" />
+                </div>
+                <div class="card-body">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <p> @Model.Input.DataClient.Nombre</p>
+                        </div>
+                        <div class="row">
+                            <p>Credit: </p>
+                            &nbsp;
+                            @if (Model.Input.DataClient.Credit)
+                            {
+                                <p class="text-success">Disponible.</p>
+                            }
+                            else
+                            {
+                                <p class="text-danger">No disponible.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Informacion
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Rut
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataClient.Rut</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Telefono
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataClient.Telefono</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Correo electronico
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataClient.Email</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form asp-area="Customers" asp-page="Register" method="post">
+                                        @{
+                                            var DataClient = JsonConvert.SerializeObject(Model.Input.DataClient);
+                                        }
+
+                                        <input type="hidden" name="DataClient" value="@DataClient" />
+                                        <input type="submit" value="Editar" class="btn btn-success ">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

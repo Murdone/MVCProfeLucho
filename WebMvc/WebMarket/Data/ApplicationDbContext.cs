@@ -7,6 +7,11 @@ namespace WebMarket.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        static DbContextOptions<ApplicationDbContext> _options;
+        public ApplicationDbContext() : base(_options)
+        {
+
+        }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }

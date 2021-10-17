@@ -32,6 +32,7 @@ namespace WebMarket.Areas.Clientes.Models
         public DateTime Date { set; get; }
         public bool Credit { set; get; }
         public byte[] Image { get; set; }
+        public int IdClient { set; get; }
 
         [TempData]
         public string ErrorMessage { get; set; }
