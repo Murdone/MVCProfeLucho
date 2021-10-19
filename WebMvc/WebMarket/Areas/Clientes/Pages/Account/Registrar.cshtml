@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model RegistrarModel
 @{
 }
@@ -56,7 +56,7 @@
                                      data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <input asp-for="Input" placeholder="Ingrese Rut" class="form-control" autofocus />
+                                            <input asp-for="Input.Rut" placeholder="Ingrese Rut" class="form-control" autofocus />
                                             <span asp-validation-for="Input.Rut" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">

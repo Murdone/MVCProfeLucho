@@ -27,7 +27,7 @@ namespace WebMarket.Areas.Clientes.Controllers
             _signInManager = signInManager;
             _customer = new LClientes(context);
         }
-        public IActionResult Customers(int id, String filtrar)
+        public IActionResult Clientes(int id, String filtrar)
         {
             if (_signInManager.IsSignedIn(User))
             {
@@ -37,7 +37,7 @@ namespace WebMarket.Areas.Clientes.Controllers
                 {
                     var url = Request.Scheme + "://" + Request.Host.Value;
                     objects = new LPaginador<ImputModelRegistrar>().paginador(data,
-                        id, 10, "Customers", "Customers", "Customers", url);
+                        id, 10, "Clientes", "Clientes", "Clientes", url);
                 }
                 else
                 {

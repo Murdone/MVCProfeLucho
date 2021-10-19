@@ -29,7 +29,7 @@
             <div class="col-xs-6 col-md-2">
                 <div class="card text-center">
                     <div class="card-header ">
-                        <a asp-route-id="@item.IdClient" asp-area="Customers" asp-page="/Account/Details">
+                        <a asp-route-id="@item.IdClient" asp-area="Clientes" asp-page="/Account/Details">
                             <img class='imageUsers' src="@image" />
                         </a>
                     </div>
@@ -42,7 +42,7 @@
                                 <p>@Html.DisplayFor(modelItem => item.Apellido)</p>
                             </div>
                             <div class="row">
-                                <a class="btn btn-success " asp-route-id="@item.IdClient" asp-area="Customers" asp-page="/Account/Details">
+                                <a class="btn btn-success " asp-route-id="@item.IdClient" asp-area="Clientes" asp-page="/Account/Details">
                                     Details
                                 </a>
                             </div>

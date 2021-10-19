@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace WebMarket.Controllers
     {
         private static ImputModelLogin _model;
         private LUsuarios _user;
-        //IServiceProvider _serviceProvider;
+        IServiceProvider _serviceProvider;
         private SignInManager<IdentityUser> _signInManager;
 
         public HomeController(IServiceProvider serviceProvider, UserManager<IdentityUser> userManager,
@@ -23,13 +24,13 @@ namespace WebMarket.Controllers
              RoleManager<IdentityRole> roleManager,
              ApplicationDbContext context)
         {
-            //_serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider;
             _user = new LUsuarios(userManager, signInManager, roleManager, context);
             _signInManager = signInManager;
         }
         public async Task<IActionResult> Index()
         {
-            //await CreateRolesAsync(_serviceProvider);
+            await CreateRolesAsync(_serviceProvider);
             if (_signInManager.IsSignedIn(User))
             {
                 return RedirectToAction(nameof(PrincipalController.Principal), "Principal");
@@ -86,18 +87,18 @@ namespace WebMarket.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        //private async Task CreateRolesAsync(IServiceProvider serviceProvider)
-        //{
-        //    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        //    String[] rolesName = { "Admin", "User" };
-        //    foreach (var item in rolesName)
-        //    {
-        //        var roleExist = await roleManager.RoleExistsAsync(item);
-        //        if (!roleExist)
-        //        {
-        //            await roleManager.CreateAsync(new IdentityRole(item));
-        //        }
-        //    }
-        //}
+        private async Task CreateRolesAsync(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            String[] rolesName = { "Admin", "User" };
+            foreach (var item in rolesName)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(item);
+                if (!roleExist)
+                {
+                    await roleManager.CreateAsync(new IdentityRole(item));
+                }
+            }
+        }
     }
 }
