@@ -30,16 +30,16 @@ namespace WebMarket.Controllers
             //await CreateRolesAsync(_serviceProvider);
             if (ModelState.IsValid)
             {
-                var result = await _user.UserLoginAsync(model);
-                if (result.Succeeded)
-                {
-                    return Redirect("/Principal/Principal");
-                }
-                else
-                {
-                    _model.ErrorMessage = "Correo o contraseña inválidos.";
-                    return Redirect("/");
-                }
+               // var result = await _user.UserLoginAsync(model);
+                //if (result.Succeeded)
+                //{
+                //    return Redirect("/Principal/Principal");
+                //}
+                //else
+                //{
+                //    _model.ErrorMessage = "Correo o contraseña inválidos.";
+                //    return Redirect("/");
+                //}
             }
             else
             {

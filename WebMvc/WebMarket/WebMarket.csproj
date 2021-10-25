@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Usuarios\Data\" />
+    <Folder Include="wwwroot\lib\css\" />
   </ItemGroup>
 
 </Project>
