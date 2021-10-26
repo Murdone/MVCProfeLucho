@@ -120,13 +120,13 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                         {
                             return Redirect("/Registro");
                         }
-                }
-                else
-                {
-                    return Redirect("/Usuarios/Usuarios?area=Usuarios");
-                }
+                    }
+                    else
+                    {
+                        return Redirect("/Usuarios/Usuarios?area=Usuarios");
+                    }
 
-            }
+                }
                 else
                 {
                     if (User.IsInRole("Admin"))
@@ -141,13 +141,13 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                         {
                             return Redirect("/Registro");
                         }
-                }
+                    }
                     else
-                {
-                    return Redirect("/Usuarios/Usuarios?area=Usuarios");
-                }
+                    {
+                        return Redirect("/Usuarios/Usuarios?area=Usuarios");
+                    }
 
-            }
+                }
 
             }
             else
