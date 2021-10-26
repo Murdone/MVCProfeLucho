@@ -5,30 +5,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="ventas, sistema, super, inventario">
-    <meta name="description" content="Sistema para gestion de inventario y venta de productos con la finalidad de tener control de entradas y salida de activos">
-    <meta name="author" content="Jorge Garate, Sebastian Troncoso y Percibal Vasquez" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,900&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebMarket</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/normalize.css">
-    <link rel="stylesheet" href="~/lib/bootstrap/style.css">
-    <!-- open graph para redes sociales-->
-    <meta property="og:title" content="Sistema de Gestion y venta de productos">
-    <meta property="og:url" content="#">
-    <meta property="og:image" content="https://jorgegarate.github.io/dashboard-minimarket/assets/img/img-compartir.png">
-    <meta property="og:description" content="Sistema para gestion de inventario y venta de productos con la finalidad de tener control de entradas y salida de activos">
-    <meta name="theme-color" content="#FFD100">
-    <link rel="apple-touch-icon" href="assets/img/favicon.png">
-    <link rel="icon" href="assets/img/favicon.png" type="image/png">
-    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
-    <title>@ViewData["Title"] - Market</title>
-    <title> WebMarket</title>
 </head>
 <body>
     <header>
@@ -49,7 +30,7 @@
                         </g>
                     </svg>
 
-                    WebMarket
+                    
                 </a>
                 @if (SignInManager.IsSignedIn(User))
                 {
@@ -92,11 +73,11 @@
             </div>
         </nav>
     </header>
-    @*<div class="container">*@
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    @*</div>*@
+    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">

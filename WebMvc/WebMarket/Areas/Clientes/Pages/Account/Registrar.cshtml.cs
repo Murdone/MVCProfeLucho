@@ -110,8 +110,8 @@ namespace WebMarket.Areas.Clientes.Pages.Account
             {
                 if (_dataClient2 == null)
                 {
-                    //if (User.IsInRole("Admin"))
-                    //{
+                    if (User.IsInRole("Admin"))
+                    {
                         if (await SaveAsync())
                         {
                         return Redirect("/Clientes/Clientes?area=Clientes");
@@ -120,33 +120,33 @@ namespace WebMarket.Areas.Clientes.Pages.Account
                          {
                         return Redirect("/Clientes/Registrar");
                          }
-                    //}
-                    //else
-                    //{
-                    //    return Redirect("/Clientes/Clientes?area=Clientes");
-                    //}
+                    }
+                    else
+                    {
+                        return Redirect("/Clientes/Clientes?area=Clientes");
+                    }
                 }
                 else
                 {
-                    //if (User.IsInRole("Admin"))
-                    //{
+                    if (User.IsInRole("Admin"))
+                    {
                         if (await UpdateAsync())
-                        {
-                                var url = $"/Clientes/Account/Details?id={_dataClient2.IdClient}";
-                                _dataClient2 = null;
-                                _dataClient1 = null;
-                                _dataInput = null;
-                                return Redirect(url);
-                        }
-                        else
-                        {
-                         return Redirect("/Clientes/Registrar?id=1");
-                        }
-                        //}
-                        //else
-                        //{
-                        //    return Redirect("/Clientes/Clientes?area=Clientes");
-                        //}
+                    {
+                        var url = $"/Clientes/Account/Details?id={_dataClient2.IdClient}";
+                        _dataClient2 = null;
+                        _dataClient1 = null;
+                        _dataInput = null;
+                        return Redirect(url);
+                    }
+                    else
+                    {
+                        return Redirect("/Clientes/Registrar?id=1");
+                    }
+                    }
+                    else
+                    {
+                        return Redirect("/Clientes/Clientes?area=Clientes");
+                    }
                 }
             }
             else
