@@ -108,18 +108,19 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
         {
             if (dataUser == null)
             {
-                if (_dataUser2 == null)
-                {
+                    if (_dataUser2 == null)
+                    {
                     if (User.IsInRole("Admin"))
                     {
                         if (await SaveAsync())
-                        {
-                            return Redirect("/Usuarios/Usuarios?area=Usuarios");
-                        }
-                        else
-                        {
-                            return Redirect("/Registro");
-                        }
+                            {
+                                return Redirect("/Usuarios/Usuarios?area=Usuarios");
+                            }
+                            else
+                            {
+                                return Redirect("/Registro");
+                            }
+
                 }
                 else
                 {
@@ -127,22 +128,22 @@ namespace WebMarket.Areas.Usuarios.Pages.Account
                 }
 
             }
-                else
-                {
+                    else
+                    {
                     if (User.IsInRole("Admin"))
                     {
                         if (await UpdateAsync())
-                        {
-                            var url = $"/Usuarios/Account/Detallles?id={_dataUser2.Id}";
-                            _dataUser2 = null;
-                            return Redirect(url);
-                        }
-                        else
-                        {
-                            return Redirect("/Registro");
-                        }
+                                {
+                                    var url = $"/Usuarios/Account/Detallles?id={_dataUser2.Id}";
+                                    _dataUser2 = null;
+                                    return Redirect(url);
+                                }
+                                else
+                                {
+                                    return Redirect("/Registro");
+                                }
                 }
-                    else
+                            else
                 {
                     return Redirect("/Usuarios/Usuarios?area=Usuarios");
                 }
