@@ -35,7 +35,6 @@ namespace WebMarket.Areas.Usuarios.Models
         public string ID { get; set; }
         public int Id { get; set; }
         public byte[] Image { get; set; }
-        public int NUmeros { get; set; }
         public IdentityUser IdentityUser { get; set; }
 
         [TempData]
